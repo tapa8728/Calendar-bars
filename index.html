@@ -169,6 +169,40 @@
                 }
             ];
 
+            var configTemplate = {
+                "type": "serial",
+                "theme": "none",
+                "rotate" : false,
+                "plotAreaBorderColor" : "#DADADA";
+                "plotAreaBorderAlpha" : 0;
+                "valueAxes": [{
+                    "position":"bottom",
+                    "gridAlpha": 0.1,
+                    "dashLength": 0
+                }],
+                "gridAboveGraphs": true,
+                "startDuration": 1,
+                "columnSpacing":-1;
+                "graphs": [{
+                    "balloonText": "[[category]]: <b>[[value]]</b>",
+                    "fillAlphas": 0.8,
+                    "lineAlpha": 0.2,
+                    "type": "column",
+                    "valueField": "visits"      
+                }],
+                "chartCursor": {
+                    "categoryBalloonEnabled": false,
+                    "cursorAlpha": 0,
+                    "zoomable": false
+                },
+                "categoryField": "year",
+                "categoryAxis": {
+                    "gridPosition": "start",
+                    "gridAlpha": 0.1,
+                    "axisAlpha" :0
+                }
+            };
+
 
             AmCharts.ready(function () {
                 // SERIAL CHART
@@ -226,13 +260,30 @@
                 //chart.creditsPosition = "top-right";
 
                 // WRITE
+               
+// build first chart
+var chartConfig1 = AmCharts.cloneObject(configTemplate);
+chartConfig1.dataProvider = chartData1;
+AmCharts.makeChart("chartdiv", chartConfig1);
+
+// build second chart
+var chartConfig2 = AmCharts.cloneObject(configTemplate);
+chartConfig2.dataProvider = chartData2;
+AmCharts.makeChart("chartdiv2", chartConfig2);
+
                 chart.write("january");
+                
+
+            });
+             $(function() {
+              $( "#januarymodal" ).on('shown.bs.modal', function(e) {
+                  console.log('Calling chart.invalidateSize()');
+                  chart.invalidateSize();
+                });
+              
             });
 
-            $('#januarymodal').on('shown.bs.modal', function (e) {
-                console.log("modal clickedon")
-              chart.invalidateSize();
-            })
+            
 
         </script>
     
@@ -346,10 +397,10 @@
             </div>
             <div class="container">
                 <div class="row">
-                    <div class="col-lg-12 col-lg-offset-2">
+                    <div class="col-lg-12 ">
                         <div class="modal-body">
                             <h2>Project Title</h2>
-                            <div id="january"></div>
+                            <div id="january" style="width:1000px; height:600px"></div>
                             <p> Yo yo </p>
                             <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
                         </div>
