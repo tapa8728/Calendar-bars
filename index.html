@@ -5,13 +5,236 @@
     <title>Drinking Visualization</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/js/bootstrap.min.js" integrity="sha384-vZ2WRJMwsjRMW/8U7i6PWi6AlO1L79snBrmgiDpgIWJ82z8eA5lenwvxbMV1PAh7" crossorigin="anonymous"></script>
+	
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom CSS -->
     <link href="css/thumbnail-gallery.css" rel="stylesheet">
+    <script src="amcharts/amcharts.js" type="text/javascript"></script>
+        <script src="amcharts/serial.js" type="text/javascript"></script>
+        <script>
+            var chart;
 
+            var chartData = [
+                {
+                    "year": 1,
+                    "female": 3.5,
+                    "male": 3.1
+                },
+                {
+                    "year": 2,
+                    "female": 0.2,
+                    "male": 2.8
+                },
+                {
+                    "year": 3,
+                    "female": 3.1,
+                    "male": 2.9
+                },
+                {
+                    "year": 4,
+                    "female": 0.5,
+                    "male": 2.1
+                },
+                {
+                    "year": 5,
+                    "female": 4.6,
+                    "male": 0
+                },
+                {
+                    "year": 6,
+                    "female": 2.5,
+                    "male": 1.1
+                },
+                {
+                    "year": 7,
+                    "female": 2.2,
+                    "male": 2.8
+                },
+                {
+                    "year": 8,
+                    "female": 0,
+                    "male": 2
+                },
+                {
+                    "year": 9,
+                    "female": 2,
+                    "male": 0
+                },
+                {
+                    "year": 10,
+                    "female": 5,
+                    "male": 4
+                },
+                {
+                    "year": 11,
+                    "female": 2,
+                    "male": 1.6
+                },
+                {
+                    "year": 12,
+                    "female": 2,
+                    "male": 2.6
+                },
+                {
+                    "year": 13,
+                    "female": 3.1,
+                    "male": 2.9
+                },
+                {
+                    "year": 14,
+                    "female": 0.5,
+                    "male": 2.1
+                },
+                {
+                    "year": 15,
+                    "female": 2,
+                    "male": 5
+                },
+                {
+                    "year": 16,
+                    "female": 2.5,
+                    "male": 0
+                },
+                {
+                    "year": 17,
+                    "female": 2.2,
+                    "male": 2.8
+                },
+                {
+                    "year": 18,
+                    "female": 0,
+                    "male": 0
+                },
+                {
+                    "year": 19,
+                    "female": 0,
+                    "male": 0.5
+                },
+                {
+                    "year": 20,
+                    "female": 0.6,
+                    "male": 0.7
+                },
+                {
+                    "year": 21,
+                    "female": 0,
+                    "male": 0
+                },
+                {
+                    "year": 22,
+                    "female": 1.5,
+                    "male": 3
+                },
+                {
+                    "year": 23,
+                    "female": 0.1,
+                    "male": 0
+                },
+                {
+                    "year": 24,
+                    "female": 3.5,
+                    "male": 5.1
+                },
+                {
+                    "year": 25,
+                    "female": 5,
+                    "male": 2
+                },
+                {
+                    "year": 26,
+                    "female": 3.5,
+                    "male": 0.1
+                },
+                {
+                    "year": 27,
+                    "female": 1,
+                    "male": 0
+                },
+                {
+                    "year": 28,
+                    "female": 3.1,
+                    "male": 3.9
+                },
+                {
+                    "year": 29,
+                    "female": 5,
+                    "male": 5.1
+                },
+                {
+                    "year": 30,
+                    "female": 0.6,
+                    "male": 2
+                }
+            ];
+
+
+            AmCharts.ready(function () {
+                // SERIAL CHART
+                chart = new AmCharts.AmSerialChart();
+                chart.dataProvider = chartData;
+                chart.categoryField = "year";
+                chart.startDuration = 1;
+                chart.columnSpacing = -1;
+                chart.plotAreaBorderColor = "#DADADA";
+                chart.plotAreaBorderAlpha = 0;
+                // this single line makes the chart a bar chart
+                chart.rotate = false;
+
+                // AXES
+                // Category
+                var categoryAxis = chart.categoryAxis;
+                categoryAxis.gridPosition = "start";
+                categoryAxis.gridAlpha = 0.1;
+                categoryAxis.axisAlpha = 0;
+
+                // Value
+                var valueAxis = new AmCharts.ValueAxis();
+                valueAxis.axisAlpha = 0;
+                valueAxis.gridAlpha = 0.1;
+                valueAxis.position = "bottom";
+                chart.addValueAxis(valueAxis);
+
+                // GRAPHS
+                // first graph -- For makles
+                var graph1 = new AmCharts.AmGraph();
+                graph1.type = "column";
+                graph1.title = "female";
+                graph1.valueField = "female";
+                graph1.balloonText = "female:[[value]]";
+                graph1.lineAlpha = 0;
+                graph1.fillColors = "#ff4a6a";
+                graph1.fillAlphas = 1;
+                chart.addGraph(graph1);
+
+                // second graph -- For Females
+                var graph2 = new AmCharts.AmGraph();
+                graph2.type = "column";
+                graph2.title = "male";
+                graph2.valueField = "male";
+                graph2.balloonText = "male:[[value]]";
+                graph2.lineAlpha = 0;
+                graph2.fillColors = "#81acd9";
+                graph2.fillAlphas = 1;
+                chart.addGraph(graph2);
+
+                // LEGEND
+                /*var legend = new AmCharts.AmLegend();
+                chart.addLegend(legend);*/
+
+                //chart.creditsPosition = "top-right";
+
+                // WRITE
+                chart.write("january");
+            });
+
+            $('#januarymodal').on('shown.bs.modal', function (e) {
+                console.log("modal clickedon")
+              chart.invalidateSize();
+            })
+
+        </script>
     
 </head>
 
@@ -28,62 +251,68 @@
                 <h1 class="page-header">Drinking Visualization</h1>
             </div>
 
-            <div class="jan col-lg-3 col-md-4 col-xs-6 thumb">
-                <a class="thumbnail" href="#">
-                    <!-- <img class="img-responsive" src="http://placehold.it/400x300" alt=""> -->
-                </a>
+            <div class="col-lg-4 col-md-6 col-xs-6 thumb portfolio-item">
+           			 <a href="#januarymodal" class="portfolio-link" data-toggle="modal">
+                        <div class="caption">
+                            <div class="caption-content">
+                                <i class="fa fa-search-plus fa-3x"></i>
+                            </div>
+                        </div>
+                       <div id="january" style=" height:250px;"></div>
+                    </a>
+                
             </div>
-            <div class="col-lg-3 col-md-4 col-xs-6 thumb">
-                <a class="thumbnail" href="#">
-                    <img class="img-responsive" src="http://placehold.it/400x300" alt="">
-                </a>
-            </div>
-            <div class="col-lg-3 col-md-4 col-xs-6 thumb">
-                <a class="thumbnail" href="#">
-                    <img class="img-responsive" src="http://placehold.it/400x300" alt="">
-                </a>
-            </div>
-            <div class="col-lg-3 col-md-4 col-xs-6 thumb">
+            <div class="col-lg-4 col-md-6 col-xs-6 thumb">
                 <a class="thumbnail" href="#">
                     <img class="img-responsive" src="http://placehold.it/400x300" alt="">
                 </a>
             </div>
-            <div class="col-lg-3 col-md-4 col-xs-6 thumb">
+            <div class="col-lg-4 col-md-6 col-xs-6 thumb">
                 <a class="thumbnail" href="#">
                     <img class="img-responsive" src="http://placehold.it/400x300" alt="">
                 </a>
             </div>
-            <div class="col-lg-3 col-md-4 col-xs-6 thumb">
+            <div class="col-lg-4 col-md-6 col-xs-6 thumb">
                 <a class="thumbnail" href="#">
                     <img class="img-responsive" src="http://placehold.it/400x300" alt="">
                 </a>
             </div>
-            <div class="col-lg-3 col-md-4 col-xs-6 thumb">
+            <div class="col-lg-4 col-md-6 col-xs-6 thumb">
                 <a class="thumbnail" href="#">
                     <img class="img-responsive" src="http://placehold.it/400x300" alt="">
                 </a>
             </div>
-            <div class="col-lg-3 col-md-4 col-xs-6 thumb">
+            <div class="col-lg-4 col-md-6 col-xs-6 thumb">
                 <a class="thumbnail" href="#">
                     <img class="img-responsive" src="http://placehold.it/400x300" alt="">
                 </a>
             </div>
-            <div class="col-lg-3 col-md-4 col-xs-6 thumb">
+            <div class="col-lg-4 col-md-6 col-xs-6 thumb">
                 <a class="thumbnail" href="#">
                     <img class="img-responsive" src="http://placehold.it/400x300" alt="">
                 </a>
             </div>
-            <div class="col-lg-3 col-md-4 col-xs-6 thumb">
+            <div class="col-lg-4 col-md-6 col-xs-6 thumb">
                 <a class="thumbnail" href="#">
                     <img class="img-responsive" src="http://placehold.it/400x300" alt="">
                 </a>
             </div>
-            <div class="col-lg-3 col-md-4 col-xs-6 thumb">
+            <div class="col-lg-4 col-md-6 col-xs-6 thumb">
                 <a class="thumbnail" href="#">
                     <img class="img-responsive" src="http://placehold.it/400x300" alt="">
                 </a>
             </div>
-            <div class="col-lg-3 col-md-4 col-xs-6 thumb">
+            <div class="col-lg-4 col-md-6 col-xs-6 thumb">
+                <a class="thumbnail" href="#">
+                    <img class="img-responsive" src="http://placehold.it/400x300" alt="">
+                </a>
+            </div>
+            <div class="col-lg-4 col-md-6 col-xs-6 thumb">
+                <a class="thumbnail" href="#">
+                    <img class="img-responsive" src="http://placehold.it/400x300" alt="">
+                </a>
+            </div>
+            <div class="col-lg-4 col-md-6 col-xs-6 thumb">
                 <a class="thumbnail" href="#">
                     <img class="img-responsive" src="http://placehold.it/400x300" alt="">
                 </a>
@@ -92,15 +321,7 @@
 
         <hr>
 
-        <div class="card">
-		  <img class="card-img-top" data-src="..." alt="Card image cap">
-		  <div class="card-block">
-		    <h4 class="card-title">Card title</h4>
-		    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-		    <a href="#" class="btn btn-primary">Button</a>
-		  </div>
-		</div>
-
+       
 
         <!-- Footer -->
         <footer>
@@ -114,12 +335,35 @@
     </div>
     <!-- /.container -->
 
+    <!-- Modals for Each month -->
+    <div class="portfolio-modal modal fade" id="januarymodal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-content">
+            <div class="close-modal" data-dismiss="modal">
+                <div class="lr">
+                    <div class="rl">
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12 col-lg-offset-2">
+                        <div class="modal-body">
+                            <h2>Project Title</h2>
+                            <div id="january"></div>
+                            <p> Yo yo </p>
+                            <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <!-- jQuery -->
     <script src="js/jquery.js"></script>
 
     <!-- Bootstrap Core JavaScript -->
     <script src="js/bootstrap.min.js"></script>
-
+  
 </body>
 
 </html>
