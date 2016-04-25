@@ -14,7 +14,7 @@ for each in lines[1:]:
 	num = m[7].replace("\n", "")
 	key = year + month + day;
 	print "key is ", key
-	print "gender:",gender,"year:",year,"month:", month, "day:",day,"had?:", had," #",num
+	#print "gender:",gender,"year:",year,"month:", month, "day:",day,"had?:", had," #",num
 	if key not in dic:
 		dic[key] = {}
 		dic[key]["female"] = {}
@@ -60,9 +60,9 @@ for each in lines[1:]:
 				dic[key]["female"]["numyes"] = dic[key]["female"]["numyes"] + int(num)
 			dic[key]["female"]["total"] = dic[key]["female"]["total"] + 1
 
-	if dic[key]["female"]["total"] == 10:
-		break
+	# if dic[key]["female"]["total"] == 10:
+	# 	break
 
-print dic
+#print dic
 with open('drinking.json', 'w') as outfile:
     json.dump(dic, outfile)
