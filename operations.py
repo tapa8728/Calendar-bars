@@ -1,4 +1,4 @@
-import calendar, json
+import calendar, json, operator
 
 f  = open("drinking_answers.txt", "r")
 lines  = f.readlines()
@@ -74,12 +74,12 @@ with open('drinking.json', 'w') as outfile:
 drinkinglist =[] 
 for k,v in dic.iteritems():
 	d = {}
-	if v["month"] == "Apr": #for April
+	if v["month"] == "Sep": #for September
 		d["day"] = int(v["day"])
 		d["male"] = v["male"]["numyes"]
 		d["female"] = v["female"]["numyes"]
 		drinkinglist.append(d)
 
-#print drinkinglist
-with open('Apr_drinking.json', 'w') as outfile2:
+drinkinglist.sort(key=operator.itemgetter('day'))
+with open('Sep_drinking.json', 'w') as outfile2:
     json.dump(drinkinglist, outfile2)
