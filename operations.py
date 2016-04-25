@@ -13,12 +13,15 @@ for each in lines[1:]:
 	had = m[6]
 	num = m[7].replace("\n", "")
 	key = year + month + day;
-	print "key is ", key
+	#print "key is ", key
 	#print "gender:",gender,"year:",year,"month:", month, "day:",day,"had?:", had," #",num
 	if key not in dic:
 		dic[key] = {}
 		dic[key]["female"] = {}
 		dic[key]["male"] ={}
+		dic[key]["day"] = day
+		dic[key]["month"] = month
+		dic[key]["year"] = year
 
 		dic[key]["female"]["no"] = 0
 		dic[key]["female"]["yes"] = 0
@@ -66,3 +69,17 @@ for each in lines[1:]:
 #print dic
 with open('drinking.json', 'w') as outfile:
     json.dump(dic, outfile)
+
+# list of dictionaries    
+drinkinglist =[] 
+for k,v in dic.iteritems():
+	d = {}
+	if v["month"] == "Apr": #for April
+		d["day"] = int(v["day"])
+		d["male"] = v["male"]["numyes"]
+		d["female"] = v["female"]["numyes"]
+		drinkinglist.append(d)
+
+#print drinkinglist
+with open('Apr_drinking.json', 'w') as outfile2:
+    json.dump(drinkinglist, outfile2)
