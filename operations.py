@@ -6,16 +6,18 @@ dic ={} #key: date; value
 for each in lines[1:]:
 	m = each.split(",")
 	gfgid = m[0]
-	year = m[1]
-	month= calendar.month_abbr[int(m[2])]
-	day = m[3]
-	had = m[4]
-	num = m[5].replace("\n", "")
+	gender = m[1]
+	year = m[3]
+	month= calendar.month_abbr[int(m[4])]
+	day = m[5]
+	had = m[6]
+	num = m[7].replace("\n", "")
 	key = year + month + day;
 	print "key is ", key
-	print "year:",year,"month:", month, "day:",day,"had?:", had," #",num
+	print "gender:",gender,"year:",year,"month:", month, "day:",day,"had?:", had," #",num
 	if key not in dic:
 		dic[key] = {}
+		dic[key]["gender"] = "null"
 		dic[key]["no"] = 0
 		dic[key]["yes"] = 0
 		dic[key]["numyes"] = 0
@@ -24,8 +26,18 @@ for each in lines[1:]:
 			dic[key]["no"] = dic[key]["no"] + 1
 		elif had == "Yes":
 			dic[key]["yes"] = dic[key]["yes"] + 1
-			dic[key]["numyes"] = dic[key]["numyes"] + num
+			dic[key]["numyes"] = dic[key]["numyes"] + int(num)
 		dic[key]["total"] = dic[key]["total"] + 1
-	break
+		dic[key]["gender"] = gender
+	else:
+		if had == "No":
+			dic[key]["no"] = dic[key]["no"] + 1
+		elif had == "Yes":
+			dic[key]["yes"] = dic[key]["yes"] + 1
+			dic[key]["numyes"] = dic[key]["numyes"] + int(num)
+		dic[key]["total"] = dic[key]["total"] + 1
+		dic[key]["gender"] = gender
+	if dic[key]["total"] == 10:
+		break
 
 print dic
