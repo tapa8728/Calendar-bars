@@ -11,5 +11,7 @@ for each in lines[1:]:
 	day = m[3]
 	had = m[4]
 	num = m[5].replace("\n", "")
+	key = year + month + day;
+	print "key is ", key
 	print "year:",year,"month:", month, "day:",day,"had?:", had," #",num
 	break
