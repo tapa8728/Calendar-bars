@@ -36,34 +36,34 @@ for each in lines[1:]:
 		dic[key]["male"]["total"] = 0
 		if gender == "male":
 			if had == "No":
-				dic[key]["male"]["no"] = dic[key]["male"]["no"] + 1
+				dic[key]["male"]["no"]+= 1
 			elif had == "Yes":
-				dic[key]["male"]["yes"] = dic[key]["male"]["yes"] + 1
-				dic[key]["male"]["numyes"] = dic[key]["male"]["numyes"] + int(num)
-			dic[key]["male"]["total"] = dic[key]["male"]["total"] + 1
+				dic[key]["male"]["yes"] += 1
+				dic[key]["male"]["numyes"]+= int(num)
+			dic[key]["male"]["total"]+= 1
 		elif gender == "female":
 			if had == "No":
-				dic[key]["female"]["no"] = dic[key]["female"]["no"] + 1
+				dic[key]["female"]["no"] += 1
 			elif had == "Yes":
-				dic[key]["female"]["yes"] = dic[key]["female"]["yes"] + 1
-				dic[key]["female"]["numyes"] = dic[key]["female"]["numyes"] + int(num)
-			dic[key]["female"]["total"] = dic[key]["female"]["total"] + 1
+				dic[key]["female"]["yes"]+= 1
+				dic[key]["female"]["numyes"]+= int(num)
+			dic[key]["female"]["total"]+= 1
 			
 	else:
 		if gender == "male":
 			if had == "No":
-				dic[key]["male"]["no"] = dic[key]["male"]["no"] + 1
+				dic[key]["male"]["no"]+= 1
 			elif had == "Yes":
-				dic[key]["male"]["yes"] = dic[key]["male"]["yes"] + 1
-				dic[key]["male"]["numyes"] = dic[key]["male"]["numyes"] + int(num)
-			dic[key]["male"]["total"] = dic[key]["male"]["total"] + 1
+				dic[key]["male"]["yes"]+= 1
+				dic[key]["male"]["numyes"]+= int(num)
+			dic[key]["male"]["total"] += 1
 		elif gender == "female":
 			if had == "No":
-				dic[key]["female"]["no"] = dic[key]["female"]["no"] + 1
+				dic[key]["female"]["no"]+= 1
 			elif had == "Yes":
-				dic[key]["female"]["yes"] = dic[key]["female"]["yes"] + 1
-				dic[key]["female"]["numyes"] = dic[key]["female"]["numyes"] + int(num)
-			dic[key]["female"]["total"] = dic[key]["female"]["total"] + 1
+				dic[key]["female"]["yes"]+= 1
+				dic[key]["female"]["numyes"]+= int(num)
+			dic[key]["female"]["total"]+= 1
 
 	# if dic[key]["female"]["total"] == 10:
 	# 	break
@@ -76,12 +76,12 @@ with open('drinking.json', 'w') as outfile:
 drinkinglist =[] 
 for k,v in dic.iteritems():
 	d = {}
-	if v["month"] == "Sep": #for September
+	if v["month"] == "Oct": #for October
 		d["day"] = int(v["day"])
 		d["male"] = round(v["male"]["numyes"]/v["male"]["total"], 2)
 		d["female"] = round(v["female"]["numyes"]/v["female"]["total"], 2)
 		drinkinglist.append(d)
 
 drinkinglist.sort(key=operator.itemgetter('day'))
-with open('Sep_drinking.json', 'w') as outfile2:
+with open('Oct_drinking.json', 'w') as outfile2:
     json.dump(drinkinglist, outfile2)
