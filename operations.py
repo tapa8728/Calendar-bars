@@ -1,4 +1,6 @@
+from __future__ import division
 import calendar, json, operator
+
 
 f  = open("drinking_answers.txt", "r")
 lines  = f.readlines()
@@ -76,8 +78,8 @@ for k,v in dic.iteritems():
 	d = {}
 	if v["month"] == "Sep": #for September
 		d["day"] = int(v["day"])
-		d["male"] = v["male"]["numyes"]
-		d["female"] = v["female"]["numyes"]
+		d["male"] = round(v["male"]["numyes"]/v["male"]["total"], 2)
+		d["female"] = round(v["female"]["numyes"]/v["female"]["total"], 2)
 		drinkinglist.append(d)
 
 drinkinglist.sort(key=operator.itemgetter('day'))
