@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <title>Drinking Time Series</title>
+
+    <!-- Bootstrap  -->
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+       
+    <script src="https://code.jquery.com/jquery-2.2.3.min.js" integrity="sha256-a23g1Nt4dtEYOj7bR+vTu7+T8VP13humZFBJNIYoEJo=" crossorigin="anonymous"></script>
+
+    <!-- Amcharts -->
+    <script type="text/javascript" src="http://www.amcharts.com/lib/3/amcharts.js"></script>
+    <script src="amcharts/plugins/dataloader/dataloader.js" type="text/javascript"></script>
+    <script type="text/javascript" src="http://www.amcharts.com/lib/3/serial.js"></script>
+
+    
+    <!-- amCharts javascript code -->
+    <script type="text/javascript">
+            /*--------------------------------
+                EMOTION TONE
+                input static/data/clinton_doc_emotion.json
+            ---------------------------------*/
+            AmCharts.makeChart("emotion",
+                {
+                    "type": "serial",
+                    "categoryField": "date",
+                    "dataDateFormat": "YYYY-MM-DD",
+                    "backgroundColor":"white",
+                    "categoryAxis": {
+                        "parseDates": true,
+                        "title": "Daily drinking stats",
+                        "fontSize": 15
+                    },
+                    "chartScrollbar": {
+                        "enabled": true
+                    },
+                    "chartCursor": {
+                        "enabled": true,
+                        "categoryBalloonEnabled": true
+                    },
+                    
+                    "trendLines": [],
+                    "graphs": [
+                        //Male
+                        {
+                            "balloonText": "[[title]] - [[category]]: <b>[[value]] </b>",
+                            "fillAlphas": 0.7,
+                            "id": "AmGraph-1",
+                            "lineAlpha": 0,
+                            "title": "Male",
+                            "valueField": "male",
+                            "fillColors" : "#428be0"
+                        },
+                        //Female
+                        {
+                            "balloonText": "[[title]] - [[category]]: <b>[[value]] </b>",
+                            "fillAlphas": 0.7,
+                            "id": "AmGraph-2",
+                            "lineAlpha": 0,
+                            "title": "Female",
+                            "valueField": "female",
+                            "fillColors": "pink"
+                        }
+                        
+                    ],
+                    "valueAxes": [
+                        {
+                            "id": "ValueAxis-1",
+                            "title": "Average values"
+                        }
+                    ],
+                    "legend": {
+                        "enabled": true,
+                        "color": "black",
+                        "fontSize": 15,
+                        "align":"right"
+                    },
+
+                    "dataLoader": {    
+                        "url": "timeseries_data.json",
+                        "showCurtain": false
+                      }
+                    
+                }); //end of time series drinking graph
+
+            
+   </script>
+</head>
+
+    
+
+<body>
+    <center><h1> Drinking Time Series </h1> </center>
+    <div id="emotion" style="background-color:white;width: 100%; height:600px"></div>
+    
+
+    
+
+</body>
+
+</html>
