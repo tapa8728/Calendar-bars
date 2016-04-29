@@ -169,12 +169,12 @@
                 }
             ];
 
-            var configTemplate = {
+           /* var configTemplate = {
                 "type": "serial",
                 "theme": "none",
                 "rotate" : false,
-                "plotAreaBorderColor" : "#DADADA";
-                "plotAreaBorderAlpha" : 0;
+                "plotAreaBorderColor" : "#DADADA",
+                "plotAreaBorderAlpha" : 0,
                 "valueAxes": [{
                     "position":"bottom",
                     "gridAlpha": 0.1,
@@ -201,7 +201,7 @@
                     "gridAlpha": 0.1,
                     "axisAlpha" :0
                 }
-            };
+            };*/
 
 
             AmCharts.ready(function () {
@@ -260,7 +260,7 @@
                 //chart.creditsPosition = "top-right";
 
                 // WRITE
-               
+/*               
 // build first chart
 var chartConfig1 = AmCharts.cloneObject(configTemplate);
 chartConfig1.dataProvider = chartData1;
@@ -269,19 +269,19 @@ AmCharts.makeChart("chartdiv", chartConfig1);
 // build second chart
 var chartConfig2 = AmCharts.cloneObject(configTemplate);
 chartConfig2.dataProvider = chartData2;
-AmCharts.makeChart("chartdiv2", chartConfig2);
+AmCharts.makeChart("chartdiv2", chartConfig2);*/
 
                 chart.write("january");
                 
 
             });
-             $(function() {
+             /*$(function() {
               $( "#januarymodal" ).on('shown.bs.modal', function(e) {
                   console.log('Calling chart.invalidateSize()');
                   chart.invalidateSize();
                 });
               
-            });
+            });*/
 
             
 
@@ -311,7 +311,7 @@ AmCharts.makeChart("chartdiv2", chartConfig2);
                         </div>
                        <div id="january" style=" height:250px;"></div>
                     </a>
-                
+                    <center><p> January </p></center>
             </div>
             <div class="col-lg-4 col-md-6 col-xs-6 thumb">
                 <a class="thumbnail" href="#">
@@ -401,7 +401,7 @@ AmCharts.makeChart("chartdiv2", chartConfig2);
                         <div class="modal-body">
                             <h2>Project Title</h2>
                             <div id="january" style="width:1000px; height:600px"></div>
-                            <p> Yo yo </p>
+                            <p> Graph for January should come here </p>
                             <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
                         </div>
                     </div>
