@@ -10,13 +10,13 @@ for each in lines[1:]:
 	gfgid = m[0]
 	gender = m[1]
 	year = m[3]
-	month= calendar.month_abbr[int(m[4])]
+	month= m[4]   #calendar.month_abbr[int(m[4])]
 	day = m[5]
 	had = m[6]
 	num = m[7].replace("\n", "")
-	key = year + month + day;
-	#print "key is ", key
-	#print "gender:",gender,"year:",year,"month:", month, "day:",day,"had?:", had," #",num
+	key = year +"-"+ "%02d" % int(month)+"-"+ "%02d" % int(day);
+	print "key is ", key
+	print "gender:",gender,"year:",year,"month:", month, "day:",day,"had?:", had," #",num
 	if key not in dic:
 		dic[key] = {}
 		dic[key]["female"] = {}
@@ -65,23 +65,23 @@ for each in lines[1:]:
 				dic[key]["female"]["numyes"]+= int(num)
 			dic[key]["female"]["total"]+= 1
 
-	# if dic[key]["female"]["total"] == 10:
-	# 	break
+	if dic[key]["female"]["total"] == 5:
+		break
 
-#print dic
-with open('drinking.json', 'w') as outfile:
-    json.dump(dic, outfile)
+print dic
+# with open('drinking.json', 'w') as outfile:
+#     json.dump(dic, outfile)
 
-# list of dictionaries    
-drinkinglist =[] 
-for k,v in dic.iteritems():
-	d = {}
-	if v["month"] == "Oct": #for October
-		d["day"] = int(v["day"])
-		d["male"] = round(v["male"]["numyes"]/v["male"]["total"], 2)
-		d["female"] = round(v["female"]["numyes"]/v["female"]["total"], 2)
-		drinkinglist.append(d)
+# # list of dictionaries    
+# drinkinglist =[] 
+# for k,v in dic.iteritems():
+# 	d = {}
+# 	if v["month"] == "Oct": #for October
+# 		d["day"] = int(v["day"])
+# 		d["male"] = round(v["male"]["numyes"]/v["male"]["total"], 2)
+# 		d["female"] = round(v["female"]["numyes"]/v["female"]["total"], 2)
+# 		drinkinglist.append(d)
 
-drinkinglist.sort(key=operator.itemgetter('day'))
-with open('Oct_drinking.json', 'w') as outfile2:
-    json.dump(drinkinglist, outfile2)
+# drinkinglist.sort(key=operator.itemgetter('day'))
+# with open('Oct_drinking.json', 'w') as outfile2:
+#     json.dump(drinkinglist, outfile2)
