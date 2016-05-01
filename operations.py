@@ -1,6 +1,8 @@
 from __future__ import division
+from datetime import date
 import calendar, json, operator
 
+	
 
 f  = open("drinking_answers.txt", "r")
 lines  = f.readlines()
@@ -48,7 +50,7 @@ for each in lines[1:]:
 				dic[key]["female"]["yes"]+= 1
 				dic[key]["female"]["numyes"]+= int(num)
 			dic[key]["female"]["total"]+= 1
-			
+
 	else:
 		if gender == "male":
 			if had == "No":
@@ -72,8 +74,8 @@ print dic
 # with open('drinking.json', 'w') as outfile:
 #     json.dump(dic, outfile)
 
-# list of dictionaries    
-# drinkinglist =[] 
+# list of dictionaries
+# drinkinglist =[]
 # for k,v in dic.iteritems():
 # 	d = {}
 # 	if v["month"] == "Oct": #for October
@@ -86,17 +88,20 @@ print dic
 # with open('Oct_drinking.json', 'w') as outfile2:
 #     json.dump(drinkinglist, outfile2)
 
-timeseries_list =[] 
+'''For timeseries graph'''
+timeseries_list =[]
 for k,v in dic.iteritems():
 	d = {} #empty dictionary
 	print "key :: ", k
 	print "value ::", v
+	# from key get the day of the week
+
 	d["date"] = k
-	if v["male"]["total"] == 0:	
+	if v["male"]["total"] == 0:
 		d["male"] = 0
 	else:
 		d["male"] = round(v["male"]["numyes"]/float(v["male"]["total"]), 2)
-	if v["female"]["total"] == 0:	
+	if v["female"]["total"] == 0:
 		d["female"] = 0
 	else:
 		d["female"] = round(v["female"]["numyes"]/float(v["female"]["total"]), 2)
