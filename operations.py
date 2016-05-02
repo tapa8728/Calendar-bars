@@ -1,5 +1,5 @@
 from __future__ import division
-import datetime
+import datetime, time
 from datetime import date
 import calendar, json, operator
 
@@ -91,23 +91,33 @@ for each in lines[1:]:
 
 '''For timeseries graph'''
 timeseries_list =[]
+start_date = datetime.date(2015, 4,1)
 for k,v in dic.iteritems():
 	d = {} #empty dictionary
 	# print "key :: ", k
 	# print "value ::", v
-	d["date"] = k
-	# from key get the day of the week
 	ans = datetime.date(int(v['year']), int(v['month']), int(v['day']))
-	d["weekday"] = ans.strftime("%A")
-	if v["male"]["total"] == 0:
-		d["male"] = 0
+	if ans >= start_date:
+
+	# print "ans -- ", ans
+	# print type(ans)
+	# exit()
+	# if false:
+		d["date"] = k
+		# from key get the day of the week
+
+		d["weekday"] = ans.strftime("%A")
+		if v["male"]["total"] == 0:
+			d["male"] = 0
+		else:
+			d["male"] = round(v["male"]["numyes"]/float(v["male"]["total"]), 2)
+		if v["female"]["total"] == 0:
+			d["female"] = 0
+		else:
+			d["female"] = round(v["female"]["numyes"]/float(v["female"]["total"]), 2)
+		timeseries_list.append(d)
 	else:
-		d["male"] = round(v["male"]["numyes"]/float(v["male"]["total"]), 2)
-	if v["female"]["total"] == 0:
-		d["female"] = 0
-	else:
-		d["female"] = round(v["female"]["numyes"]/float(v["female"]["total"]), 2)
-	timeseries_list.append(d)
+		pass
 
 # print timeseries_list
 
