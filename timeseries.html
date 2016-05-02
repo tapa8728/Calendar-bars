@@ -27,10 +27,10 @@
     <!-- amCharts javascript code -->
     <script type="text/javascript">
             /*--------------------------------
-                EMOTION TONE
-                input static/data/clinton_doc_emotion.json
+                DRINKING STATISTICS - YEAR 2015
+                input /data/timeseries_2015.json
             ---------------------------------*/
-            AmCharts.makeChart("emotion",
+            AmCharts.makeChart("year2015",
                 {
                     "startDuration": 0.8,
                     "startEffect": "easeOutSine",
@@ -39,19 +39,24 @@
                     "categoryField": "date",
                     "dataDateFormat": "YYYY-MM-DD",
                     "backgroundColor":"white",
+                    "mouseWheelZoomEnabled": true,
 
                     "categoryAxis": {
                         "parseDates": true,
-                        "title": "Daily drinking statistics",
+                        "title": "Average number of drinks reported by Genes for Good participants since the study started",
                         "fontSize": 15,
-                        "titleFontSize": 20
+                        "titleFontSize": 20,
+                        "titleColor": "#00274C"
                     },
                     "chartScrollbar": {
                         "enabled": true,
                         "autoGridCount": true,
                         "offset": 12,
                         "scrollbarHeight": 28,
-                        "backgroundColor": "#00274C"
+                        "backgroundColor": "#667d93", //yellow- ffcb05
+                        "selectedBackgroundColor": "#00274C",
+                        "fontSize":15,
+                        "color": "white" //font color
                     },
                     "chartCursor": {
                         "enabled": true,
@@ -59,6 +64,9 @@
                         "categoryBalloonEnabled": true,
                         "fullWidth": true,
                         "leaveCursor": true,
+                        "dragIconHeight": 57,
+                        "showHandOnHover": true,
+		                    "dragIconWidth": 50,
                         "valueZoomable": true,
                         "cursorColor": "#dbdbdb",
                         "bulletsEnabled": true,
@@ -70,31 +78,32 @@
                         //Male
                         {
                             "balloonText": "<b>[[title]]</b> - [[category]] [[weekday]]: <b>[[value]]</b>",
-                            "fillAlphas": 0.7,
+                            "fillAlphas": 1,
                             "id": "AmGraph-1",
                             "lineAlpha": 0,
                             "title": "Male",
                             "valueField": "male",
-                            "fillColors" : "#428be0"
+                            "fillColors" : "#00274c" //blue
                         },
                         //Female
                         {
                             "balloonText": "<b>[[title]]</b> - [[category]] [[weekday]]: <b>[[value]] </b>",
-                            "fillAlphas": 0.7,
+                            "fillAlphas": 1,
                             "id": "AmGraph-2",
                             "lineAlpha": 0,
                             "title": "Female",
                             "valueField": "female",
-                            "fillColors": "pink"
+                            "fillColors": "#ffcb05" //yellow
                         }
 
                     ],
                     "valueAxes": [
                         {
                             "id": "ValueAxis-1",
-                            "title": "Average values",
+                            "title": "Number of drinks",
                             "fontSize": 15,
-                            "titleFontSize": 20
+                            "titleFontSize": 20,
+                            "titleColor": "#00274C"
                         }
                     ],
                     "legend": {
@@ -103,18 +112,116 @@
                         "fontSize": 15,
                         "align":"left",
                         "horizontalGap": 13,
+                        "maxColumns": 1
                     },
                     "balloon":{
                       "fontSize": 15,
                       "maxWidth": 300
                     },
                     "dataLoader": {
-                        "url": "timeseries_data.json",
+                        "url": "timeseries_2015.json",
                         "showCurtain": false
                       }
 
-                }); //end of time series drinking graph
+                }); //end of time series drinking graph for 2015
 
+            /*--------------------------------
+                DRINKING STATISTICS - YEAR 2016
+                input /data/timeseries_2016.json
+            ---------------------------------*/
+            AmCharts.makeChart("year2016",
+                {
+                    "startDuration": 0.8,
+                    "startEffect": "easeOutSine",
+                    "type": "serial",
+                    "fontFamily": "",
+                    "categoryField": "date",
+                    "dataDateFormat": "YYYY-MM-DD",
+                    "backgroundColor":"white",
+                    "mouseWheelZoomEnabled": true,
+
+                    "categoryAxis": {
+                        "parseDates": true,
+                        "title": "Average number of drinks reported by Genes for Good participants since the study started",
+                        "fontSize": 15,
+                        "titleFontSize": 20,
+                        "titleColor": "#00274C"
+                    },
+                    "chartScrollbar": {
+                        "enabled": true,
+                        "autoGridCount": true,
+                        "offset": 12,
+                        "scrollbarHeight": 28,
+                        "backgroundColor": "#667d93", //yellow- ffcb05
+                        "selectedBackgroundColor": "#00274C",
+                        "fontSize":15,
+                        "color": "white" //font color
+                    },
+                    "chartCursor": {
+                        "enabled": true,
+                        "animationDuration": 0.6,
+                        "categoryBalloonEnabled": true,
+                        "fullWidth": true,
+                        "leaveCursor": true,
+                        "dragIconHeight": 57,
+                        "showHandOnHover": true,
+		                    "dragIconWidth": 50,
+                        "valueZoomable": true,
+                        "cursorColor": "#dbdbdb",
+                        "bulletsEnabled": true,
+                        "color": "#5B4141"
+                    },
+
+                    "trendLines": [],
+                    "graphs": [
+                        //Male
+                        {
+                            "balloonText": "<b>[[title]]</b> - [[category]] [[weekday]]: <b>[[value]]</b>",
+                            "fillAlphas": 1,
+                            "id": "AmGraph-1",
+                            "lineAlpha": 0,
+                            "title": "Male",
+                            "valueField": "male",
+                            "fillColors" : "#00274c" //blue
+                        },
+                        //Female
+                        {
+                            "balloonText": "<b>[[title]]</b> - [[category]] [[weekday]]: <b>[[value]] </b>",
+                            "fillAlphas": 1,
+                            "id": "AmGraph-2",
+                            "lineAlpha": 0,
+                            "title": "Female",
+                            "valueField": "female",
+                            "fillColors": "#ffcb05" //yellow
+                        }
+                      ],
+                    "valueAxes": [
+                        {
+                            "id": "ValueAxis-1",
+                            "title": "Number of drinks",
+                            "fontSize": 15,
+                            "titleFontSize": 20,
+                            "titleColor": "#00274C"
+                        }
+                    ],
+                    "legend": {
+                        "enabled": true,
+                        "color": "black",
+                        "fontSize": 15,
+                        "align":"left",
+                        "horizontalGap": 13,
+                        "maxColumns": 1
+                    },
+                    "balloon":{
+                      "fontSize": 15,
+                      "maxWidth": 300
+                    },
+                    "dataLoader": {
+                        "url": "timeseries_2016.json",
+                        "showCurtain": false
+                      }
+
+                }); //end of time series drinking graph for 2016
 
    </script>
 </head>
@@ -122,9 +229,11 @@
 
 
 <body>
-    <center><h1> Drinking Time Series </h1> </center>
-    <div id="emotion" style="background-color:white;width: 100%; height:600px"></div>
-    <h1><a href="index_2.html"> Calendar layout </a><h2>
+    <center><h1> When do Genes for Good participants tend to report drinking alcohol in 2015?</h1> </center>
+    <div id="year2015" style="background-color:white;width: 100%; height:600px"></div>
+    <center><h1> When do Genes for Good participants tend to report drinking alcohol in 2016?</h1> </center>
+    <div id="year2016" style="background-color:white;width: 100%; height:600px"></div>
+    <!-- <h1><a href="index_2.html"> Calendar layout </a><h2> -->
 
 
 

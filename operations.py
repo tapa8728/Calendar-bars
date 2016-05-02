@@ -1,6 +1,6 @@
 from __future__ import division
 import datetime, time
-from datetime import date
+from datetime import date, timedelta
 import calendar, json, operator
 
 
@@ -17,9 +17,13 @@ for each in lines[1:]:
 	day = m[5]
 	had = m[6]
 	num = m[7].replace("\n", "")
-	key = year +"-"+ "%02d" % int(month)+"-"+ "%02d" % int(day);
-	#print "key is ", key
-	#print "gender:",gender,"year:",year,"month:", month, "day:",day,"had?:", had," #",num
+	# subtract -1 from the date specified
+	dt = datetime.date(int(year), int(month), int(day))
+	ndt = dt - timedelta(days=1)
+	day,  month, year = ndt.day, ndt.month, ndt.year
+	key = str(year) +"-"+ "%02d" % month +"-"+ "%02d" % day;
+	# print "key is ", key
+	# print "gender:",gender,"year:",year,"month:", month, "day:",day,"had?:", had," #",num
 	if key not in dic:
 		dic[key] = {}
 		dic[key]["female"] = {}
@@ -69,7 +73,7 @@ for each in lines[1:]:
 			dic[key]["female"]["total"]+= 1
 
 	# if dic[key]["female"]["total"] == 5:
-	# 	break
+	# 	exit()
 
 #print dic
 # with open('drinking.json', 'w') as outfile:
@@ -90,14 +94,15 @@ for each in lines[1:]:
 #     json.dump(drinkinglist, outfile2)
 
 '''For timeseries graph'''
-timeseries_list =[]
-start_date = datetime.date(2015, 4,1)
+timeseries2015 =[]
+start_date = datetime.date(2015, 1,1)	#1st Jan 2015
+end_date = datetime.date(2015, 12,31)	#31st Dec 2015
 for k,v in dic.iteritems():
 	d = {} #empty dictionary
 	# print "key :: ", k
 	# print "value ::", v
 	ans = datetime.date(int(v['year']), int(v['month']), int(v['day']))
-	if ans >= start_date:
+	if ans = start_date:
 		d["date"] = k
 		d["weekday"] = ans.strftime("%A")
 		if v["male"]["total"] == 0:
@@ -108,13 +113,13 @@ for k,v in dic.iteritems():
 			d["female"] = 0
 		else:
 			d["female"] = round(v["female"]["numyes"]/float(v["female"]["total"]), 2)
-		timeseries_list.append(d)
+		timeseries2015.append(d)
 	else:
 		pass
 
 # print timeseries_list
 
 
-timeseries_list.sort(key=operator.itemgetter('date'))
-with open('timeseries_data.json', 'w') as outfile3:
+timeseries2015.sort(key=operator.itemgetter('date'))
+with open('timeseries_2015.json', 'w') as outfile3:
     json.dump(timeseries_list, outfile3)
