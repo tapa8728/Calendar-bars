@@ -102,7 +102,7 @@ for k,v in dic.iteritems():
 	# print "key :: ", k
 	# print "value ::", v
 	ans = datetime.date(int(v['year']), int(v['month']), int(v['day']))
-	if ans = start_date:
+	if ans >= start_date and ans <= end_date :
 		d["date"] = k
 		d["weekday"] = ans.strftime("%A")
 		if v["male"]["total"] == 0:
@@ -117,9 +117,36 @@ for k,v in dic.iteritems():
 	else:
 		pass
 
+timeseries2016 =[]
+start_date = datetime.date(2016, 1,1)	#1st Jan 2015
+end_date = datetime.date(2016, 12,31)	#31st Dec 2015
+for k,v in dic.iteritems():
+	d = {} #empty dictionary
+	# print "key :: ", k
+	# print "value ::", v
+	ans = datetime.date(int(v['year']), int(v['month']), int(v['day']))
+	if ans >= start_date and ans <= end_date :
+		d["date"] = k
+		d["weekday"] = ans.strftime("%A")
+		if v["male"]["total"] == 0:
+			d["male"] = 0
+		else:
+			d["male"] = round(v["male"]["numyes"]/float(v["male"]["total"]), 2)
+		if v["female"]["total"] == 0:
+			d["female"] = 0
+		else:
+			d["female"] = round(v["female"]["numyes"]/float(v["female"]["total"]), 2)
+		timeseries2016.append(d)
+	else:
+		pass
 # print timeseries_list
 
 
 timeseries2015.sort(key=operator.itemgetter('date'))
 with open('timeseries_2015.json', 'w') as outfile3:
-    json.dump(timeseries_list, outfile3)
+    json.dump(timeseries2015, outfile3)
+print "2015 dumped"
+timeseries2016.sort(key=operator.itemgetter('date'))
+with open('timeseries_2016.json', 'w') as outfile4:
+    json.dump(timeseries2016, outfile4)
+print "2016 dumped"
