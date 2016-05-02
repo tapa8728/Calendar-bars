@@ -98,14 +98,7 @@ for k,v in dic.iteritems():
 	# print "value ::", v
 	ans = datetime.date(int(v['year']), int(v['month']), int(v['day']))
 	if ans >= start_date:
-
-	# print "ans -- ", ans
-	# print type(ans)
-	# exit()
-	# if false:
 		d["date"] = k
-		# from key get the day of the week
-
 		d["weekday"] = ans.strftime("%A")
 		if v["male"]["total"] == 0:
 			d["male"] = 0
