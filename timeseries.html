@@ -35,9 +35,11 @@
                     "startDuration": 0.8,
                     "startEffect": "easeOutSine",
                     "type": "serial",
+                    "fontFamily": "",
                     "categoryField": "date",
                     "dataDateFormat": "YYYY-MM-DD",
                     "backgroundColor":"white",
+
                     "categoryAxis": {
                         "parseDates": true,
                         "title": "Daily drinking statistics",
@@ -45,13 +47,22 @@
                         "titleFontSize": 20
                     },
                     "chartScrollbar": {
-                        "enabled": true
+                        "enabled": true,
+                        "autoGridCount": true,
+                        "offset": 12,
+                        "scrollbarHeight": 28,
+                        "backgroundColor": "#00274C"
                     },
                     "chartCursor": {
                         "enabled": true,
+                        "animationDuration": 0.6,
                         "categoryBalloonEnabled": true,
                         "fullWidth": true,
-                        "cursorColor": "grey"
+                        "leaveCursor": true,
+                        "valueZoomable": true,
+                        "cursorColor": "#dbdbdb",
+                        "bulletsEnabled": true,
+                        "color": "#5B4141"
                     },
 
                     "trendLines": [],
@@ -90,9 +101,13 @@
                         "enabled": true,
                         "color": "black",
                         "fontSize": 15,
-                        "align":"left"
+                        "align":"left",
+                        "horizontalGap": 13,
                     },
-
+                    "balloon":{
+                      "fontSize": 15,
+                      "maxWidth": 300
+                    },
                     "dataLoader": {
                         "url": "timeseries_data.json",
                         "showCurtain": false
