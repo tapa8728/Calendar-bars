@@ -1,8 +1,9 @@
 from __future__ import division
+import datetime
 from datetime import date
 import calendar, json, operator
 
-	
+
 
 f  = open("drinking_answers.txt", "r")
 lines  = f.readlines()
@@ -17,7 +18,7 @@ for each in lines[1:]:
 	had = m[6]
 	num = m[7].replace("\n", "")
 	key = year +"-"+ "%02d" % int(month)+"-"+ "%02d" % int(day);
-	print "key is ", key
+	#print "key is ", key
 	#print "gender:",gender,"year:",year,"month:", month, "day:",day,"had?:", had," #",num
 	if key not in dic:
 		dic[key] = {}
@@ -70,7 +71,7 @@ for each in lines[1:]:
 	# if dic[key]["female"]["total"] == 5:
 	# 	break
 
-print dic
+#print dic
 # with open('drinking.json', 'w') as outfile:
 #     json.dump(dic, outfile)
 
@@ -92,11 +93,12 @@ print dic
 timeseries_list =[]
 for k,v in dic.iteritems():
 	d = {} #empty dictionary
-	print "key :: ", k
-	print "value ::", v
-	# from key get the day of the week
-
+	# print "key :: ", k
+	# print "value ::", v
 	d["date"] = k
+	# from key get the day of the week
+	ans = datetime.date(int(v['year']), int(v['month']), int(v['day']))
+	d["weekday"] = ans.strftime("%A")
 	if v["male"]["total"] == 0:
 		d["male"] = 0
 	else:
@@ -107,7 +109,7 @@ for k,v in dic.iteritems():
 		d["female"] = round(v["female"]["numyes"]/float(v["female"]["total"]), 2)
 	timeseries_list.append(d)
 
-print timeseries_list
+# print timeseries_list
 
 
 timeseries_list.sort(key=operator.itemgetter('date'))
