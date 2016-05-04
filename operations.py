@@ -95,14 +95,15 @@ for each in lines[1:]:
 
 '''For timeseries graph'''
 timeseries2015 =[]
-start_date = datetime.date(2015, 1,1)	#1st Jan 2015
+start_date = datetime.date(2015, 4,1)	#1st Jan 2015
+curr_date = datetime.today()
 end_date = datetime.date(2015, 12,31)	#31st Dec 2015
 for k,v in dic.iteritems():
 	d = {} #empty dictionary
 	# print "key :: ", k
 	# print "value ::", v
 	ans = datetime.date(int(v['year']), int(v['month']), int(v['day']))
-	if ans >= start_date and ans <= end_date :
+	if ans >= start_date and ans <= curr_date :
 		d["date"] = k
 		d["weekday"] = ans.strftime("%A")
 		if v["male"]["total"] == 0:
@@ -114,7 +115,8 @@ for k,v in dic.iteritems():
 		else:
 			d["female"] = round(v["female"]["numyes"]/float(v["female"]["total"]), 2)
 		timeseries2015.append(d)
-	else:
+	else if ans > curr_date and ans <= end_date:
+		
 		pass
 
 timeseries2016 =[]
