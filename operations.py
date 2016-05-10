@@ -77,27 +77,7 @@ for each in lines[1:]:
 	# if dic[key]["female"]["total"] == 20:
 	# 	break
 
-print "Year list is -", year_list
-#print dic
-
-# with open('drinking.json', 'w') as outfile:
-#     json.dump(dic, outfile)
-
-# list of dictionaries
-# drinkinglist =[]
-# for k,v in dic.iteritems():
-# 	d = {}
-# 	if v["month"] == "Oct": #for October
-# 		d["day"] = int(v["day"])
-# 		d["male"] = round(v["male"]["numyes"]/v["male"]["total"], 2)
-# 		d["female"] = round(v["female"]["numyes"]/v["female"]["total"], 2)
-# 		drinkinglist.append(d)
-
-# drinkinglist.sort(key=operator.itemgetter('day'))
-# with open('Oct_drinking.json', 'w') as outfile2:
-#     json.dump(drinkinglist, outfile2)
-
-'''Generic code for generating JSONs for timeseries graph'''
+'''Generic code for generating JSONs for every year for timeseries graph'''
 for eachYear in year_list: 	#[2015, 2016, 2017 ..]
 	thisYear = []
 	start_date = datetime.date(eachYear, 1, 1) #1st January XYZ
