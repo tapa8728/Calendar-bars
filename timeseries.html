@@ -11,12 +11,11 @@
 
     <!-- Optional theme -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
-
+    <script src="https://code.jquery.com/jquery-2.2.3.min.js" integrity="sha256-a23g1Nt4dtEYOj7bR+vTu7+T8VP13humZFBJNIYoEJo=" crossorigin="anonymous"></script>
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 
-    <script src="https://code.jquery.com/jquery-2.2.3.min.js" integrity="sha256-a23g1Nt4dtEYOj7bR+vTu7+T8VP13humZFBJNIYoEJo=" crossorigin="anonymous"></script>
-
+    
     <!-- Amcharts -->
     <script src="amcharts/amcharts.js" type="text/javascript"></script>
     <script src="amcharts/serial.js" type="text/javascript"></script>
@@ -26,13 +25,16 @@
 
     <!-- amCharts javascript code -->
     <script type="text/javascript">
-            /*--------------------------------
-                DRINKING STATISTICS - YEAR 2015
-                input /data/timeseries_2015.json
-            ---------------------------------*/
-            AmCharts.makeChart("year2015",
-                {
-                    "startDuration": 0.8,
+            
+
+            // custom config cloner function
+            AmCharts.cloneObject = function (obj) {
+                return JSON.parse(JSON.stringify(obj));
+            };
+
+            // define config template
+            var configTemplate = {
+                "startDuration": 0.8,
                     "startEffect": "easeOutSine",
                     "type": "serial",
                     "fontFamily": "",
@@ -66,7 +68,7 @@
                         "leaveCursor": true,
                         "dragIconHeight": 57,
                         "showHandOnHover": true,
-		                    "dragIconWidth": 50,
+                            "dragIconWidth": 50,
                         "valueZoomable": true,
                         "cursorColor": "#dbdbdb",
                         "bulletsEnabled": true,
@@ -117,111 +119,16 @@
                     "balloon":{
                       "fontSize": 15,
                       "maxWidth": 300
-                    },
-                    "dataLoader": {
-                        "url": "data/timeseries_2015.json",
-                        "showCurtain": false
-                      }
+                    }
+            };
 
-                }); //end of time series drinking graph for 2015
+            AmCharts.ready(function () {
+                var chart1 = AmCharts.makeChart("year2015", $.extend(true, {}, configTemplate, {"dataLoader": { "url": "data/timeseries_2015.json", "showCurtain": false }}) );
+                var chart2 = AmCharts.makeChart("year2016", $.extend(true, {}, configTemplate, {"dataLoader": { "url": "data/timeseries_2016.json", "showCurtain": false }}) );
+            });
 
-            /*--------------------------------
-                DRINKING STATISTICS - YEAR 2016
-                input /data/timeseries_2016.json
-            ---------------------------------*/
-            AmCharts.makeChart("year2016",
-                {
-                    "startDuration": 0.8,
-                    "startEffect": "easeOutSine",
-                    "type": "serial",
-                    "fontFamily": "",
-                    "categoryField": "date",
-                    "dataDateFormat": "YYYY-MM-DD",
-                    "backgroundColor":"white",
-                    "mouseWheelZoomEnabled": true,
 
-                    "categoryAxis": {
-                        "parseDates": true,
-                        "title": "Average number of drinks reported by Genes for Good participants since the study started",
-                        "fontSize": 15,
-                        "titleFontSize": 20,
-                        "titleColor": "#00274C"
-                    },
-                    "chartScrollbar": {
-                        "enabled": true,
-                        "autoGridCount": true,
-                        "offset": 12,
-                        "scrollbarHeight": 28,
-                        "backgroundColor": "#667d93", //yellow- ffcb05
-                        "selectedBackgroundColor": "#00274C",
-                        "fontSize":15,
-                        "color": "white" //font color
-                    },
-                    "chartCursor": {
-                        "enabled": true,
-                        "animationDuration": 0.6,
-                        "categoryBalloonEnabled": true,
-                        "fullWidth": true,
-                        "leaveCursor": true,
-                        "dragIconHeight": 57,
-                        "showHandOnHover": true,
-		                    "dragIconWidth": 50,
-                        "valueZoomable": true,
-                        "cursorColor": "#dbdbdb",
-                        "bulletsEnabled": true,
-                        "color": "#5B4141"
-                    },
-
-                    "trendLines": [],
-                    "graphs": [
-                        //Male
-                        {
-                            "balloonText": "<b>[[title]]</b> - [[category]] [[weekday]]: <b>[[value]]</b>",
-                            "fillAlphas": 0.6,
-                            "id": "AmGraph-1",
-                            "lineAlpha": 0,
-                            "title": "Male",
-                            "valueField": "male",
-                            "fillColors" : "#00274c" //blue
-                        },
-                        //Female
-                        {
-                            "balloonText": "<b>[[title]]</b> - [[category]] [[weekday]]: <b>[[value]] </b>",
-                            "fillAlphas": 0.6,
-                            "id": "AmGraph-2",
-                            "lineAlpha": 0,
-                            "title": "Female",
-                            "valueField": "female",
-                            "fillColors": "#ffcb05" //yellow
-                        }
-                      ],
-                    "valueAxes": [
-                        {
-                            "id": "ValueAxis-1",
-                            "title": "Number of drinks",
-                            "fontSize": 15,
-                            "titleFontSize": 20,
-                            "titleColor": "#00274C"
-                        }
-                    ],
-                    "legend": {
-                        "enabled": true,
-                        "color": "black",
-                        "fontSize": 15,
-                        "align":"left",
-                        "horizontalGap": 13,
-                        "maxColumns": 1
-                    },
-                    "balloon":{
-                      "fontSize": 15,
-                      "maxWidth": 300
-                    },
-                    "dataLoader": {
-                        "url": "data/timeseries_2016.json",
-                        "showCurtain": false
-                      }
-
-                }); //end of time series drinking graph for 2016
+            
 
    </script>
 </head>
