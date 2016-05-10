@@ -2,7 +2,11 @@ from __future__ import division
 import datetime, time
 from datetime import date, timedelta
 import calendar, json, operator
+from datetime import timedelta, date
 
+def daterange(start_date, end_date):
+    for n in range(int ((end_date - start_date).days)):
+        yield start_date + timedelta(n)
 
 f  = open("drinking_answers.txt", "r")
 year_list = []		#keep track of the number of years
@@ -80,6 +84,7 @@ for each in lines[1:]:
 '''Generic code for generating JSONs for every year for timeseries graph'''
 for eachYear in year_list: 	#[2015, 2016, 2017 ..]
 	thisYear = []
+	# Special case of year 2015
 	if eachYear == 2015:
 		start_date = datetime.date(eachYear, 4, 1) #1st April 2015
 	else:
@@ -103,6 +108,26 @@ for eachYear in year_list: 	#[2015, 2016, 2017 ..]
 			thisYear.append(d)
 		else:
 			pass
+	# Append blank values to the future days. Done to align the maps efficiently
+	if eachYear == 2015:
+		# Add blank values from 1st jan to start_date
+		for single_date in daterange(date(2015, 1, 1), date(2015, 4, 1)):
+			d ={}
+			d["date"] = str(single_date)
+			d["weekday"] = single_date.strftime("%A")
+			d["male"] = 0
+			d["female"] = 0
+			thisYear.append(d)
+	else:
+		# Add blank values from tomorrow to end_date
+		tomorrow_date = datetime.date.today() + datetime.timedelta(days=1)
+		for single_date in daterange(tomorrow_date, end_date):
+			d={}
+			d["date"] = str(single_date)
+			d["weekday"] = single_date.strftime("%A")
+			d["male"] = 0
+			d["female"] = 0
+			thisYear.append(d)
 	# Convert the list into JSON file for that year
 	thisYear.sort(key=operator.itemgetter('date'))
 	fname = "timeseries_"+str(eachYear)+ ".json"
