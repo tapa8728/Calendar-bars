@@ -80,7 +80,10 @@ for each in lines[1:]:
 '''Generic code for generating JSONs for every year for timeseries graph'''
 for eachYear in year_list: 	#[2015, 2016, 2017 ..]
 	thisYear = []
-	start_date = datetime.date(eachYear, 1, 1) #1st January XYZ
+	if eachYear == 2015:
+		start_date = datetime.date(eachYear, 4, 1) #1st April 2015
+	else:
+		start_date = datetime.date(eachYear, 1, 1) #1st January XYZ
 	end_date = datetime.date(eachYear, 12, 31) #31st December XYZ
 	# Iterate over the dictionary to extract the data for that particular year
 	for k,v in dic.iteritems():
@@ -103,7 +106,7 @@ for eachYear in year_list: 	#[2015, 2016, 2017 ..]
 	# Convert the list into JSON file for that year
 	thisYear.sort(key=operator.itemgetter('date'))
 	fname = "timeseries_"+str(eachYear)+ ".json"
-	with open(fname, 'w') as write:
+	with open("data/"+fname, 'w') as write:
 		json.dump(thisYear, write)
 	print  eachYear," has been dumped"
 	write.close()
