@@ -1,10 +1,11 @@
 from __future__ import division
-from datetime import date
+import datetime, time
+from datetime import date, timedelta
 import calendar, json, operator
 
-	
 
 f  = open("drinking_answers.txt", "r")
+year_list = []		#keep track of the number of years
 lines  = f.readlines()
 dic ={} #key: date; value
 for each in lines[1:]:
@@ -12,13 +13,19 @@ for each in lines[1:]:
 	gfgid = m[0]
 	gender = m[1]
 	year = m[3]
-	month= m[4]   #calendar.month_abbr[int(m[4])]
+	month= m[4]   # calendar.month_abbr[int(m[4])]
 	day = m[5]
 	had = m[6]
 	num = m[7].replace("\n", "")
-	key = year +"-"+ "%02d" % int(month)+"-"+ "%02d" % int(day);
-	print "key is ", key
-	#print "gender:",gender,"year:",year,"month:", month, "day:",day,"had?:", had," #",num
+	# subtract -1 from the date specified
+	dt = datetime.date(int(year), int(month), int(day))
+	ndt = dt - timedelta(days=1)
+	day,  month, year = ndt.day, ndt.month, ndt.year
+	if year not in year_list:
+		year_list.append(year)
+	key = str(year) +"-"+ "%02d" % month +"-"+ "%02d" % day;
+	# print "key is ", key
+	# print "gender:",gender,"year:",year,"month:", month, "day:",day,"had?:", had," #",num
 	if key not in dic:
 		dic[key] = {}
 		dic[key]["female"] = {}
@@ -67,10 +74,12 @@ for each in lines[1:]:
 				dic[key]["female"]["numyes"]+= int(num)
 			dic[key]["female"]["total"]+= 1
 
-	# if dic[key]["female"]["total"] == 5:
+	# if dic[key]["female"]["total"] == 20:
 	# 	break
 
-print dic
+print "Year list is -", year_list
+#print dic
+
 # with open('drinking.json', 'w') as outfile:
 #     json.dump(dic, outfile)
 
@@ -88,28 +97,34 @@ print dic
 # with open('Oct_drinking.json', 'w') as outfile2:
 #     json.dump(drinkinglist, outfile2)
 
-'''For timeseries graph'''
-timeseries_list =[]
-for k,v in dic.iteritems():
-	d = {} #empty dictionary
-	print "key :: ", k
-	print "value ::", v
-	# from key get the day of the week
-
-	d["date"] = k
-	if v["male"]["total"] == 0:
-		d["male"] = 0
-	else:
-		d["male"] = round(v["male"]["numyes"]/float(v["male"]["total"]), 2)
-	if v["female"]["total"] == 0:
-		d["female"] = 0
-	else:
-		d["female"] = round(v["female"]["numyes"]/float(v["female"]["total"]), 2)
-	timeseries_list.append(d)
-
-print timeseries_list
-
-
-timeseries_list.sort(key=operator.itemgetter('date'))
-with open('timeseries_data.json', 'w') as outfile3:
-    json.dump(timeseries_list, outfile3)
+'''Generic code for generating JSONs for timeseries graph'''
+for eachYear in year_list: 	#[2015, 2016, 2017 ..]
+	thisYear = []
+	start_date = datetime.date(eachYear, 1, 1) #1st January XYZ
+	end_date = datetime.date(eachYear, 12, 31) #31st December XYZ
+	# Iterate over the dictionary to extract the data for that particular year
+	for k,v in dic.iteritems():
+		d = {} #empty dictionary
+		ans = datetime.date(int(v['year']), int(v['month']), int(v['day']))
+		if ans >= start_date and ans <= end_date :
+			d["date"] = k
+			d["weekday"] = ans.strftime("%A")
+			if v["male"]["total"] == 0:
+				d["male"] = 0
+			else:
+				d["male"] = round(v["male"]["numyes"]/float(v["male"]["total"]), 2)
+			if v["female"]["total"] == 0:
+				d["female"] = 0
+			else:
+				d["female"] = round(v["female"]["numyes"]/float(v["female"]["total"]), 2)
+			thisYear.append(d)
+		else:
+			pass
+	# Convert the list into JSON file for that year
+	thisYear.sort(key=operator.itemgetter('date'))
+	fname = "timeseries_"+str(eachYear)+ ".json"
+	with open(fname, 'w') as write:
+		json.dump(thisYear, write)
+	print  eachYear," has been dumped"
+	write.close()
+ 
