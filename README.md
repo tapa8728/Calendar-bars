@@ -13,10 +13,11 @@ https://drinking-calendar.herokuapp.com/
 
 ### Data processing documentation
 The **operation.py** operates on the raw data file **drinking_answers.txt** and converts it into JSON files that can be used by amcharts to render in a timeseries graphs. The detailed description of the functions is below -
- 1. **parseRawData()**
-      - parses the `drinking_answers.txt` file into a nested dictionary `dic`. The key for this dictionary is a custom string of the format `yyyy-mm-dd`
+ 1. **parseRawData( )**
+      - Parses the `drinking_answers.txt` file into a nested dictionary `dic`. The key for this dictionary is a custom string of the format `yyyy-mm-dd`(`2015-11-19`). The value for each key is a dictionary composed of following key-value pairs - female, male, day, month, year. The male and female keys each have a dictionary for their values. This dictionary consists of key-value pairs for - no, yes, numyes, total. A simple exmaple for the nested dictionary ``
+      
       - 
- 2. **createAmchartsJSON()**
+ 2. **createAmchartsJSON( )**
 
 ## Timeseries Visualization
 Yearly mouse-wheel enabled zoomable charts with interactive legend and smooth animation. 
