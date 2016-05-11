@@ -21,10 +21,15 @@ The **operation.py** operates on the raw data file **drinking_answers.txt** and 
  2. **createAmchartsJSON( )**
     - This function creates a JSON file for each year that is present in `year_list`. 
     - For the year `2015` the `start_date` for data procesing will be 1st April, for the future years it will be 1st January. 
-    - For every year, a list of dictionaries is created where each dictionary is of the format `{'date' : 2015-11-19, 'weekday':'Thursday', 'male': 1.06, 'female': 1.2}`. `'male'` stands for the avergae number of drinks had by the males on that day and similarly for `'female'`. 
+    - For every year, a list of dictionaries `thisYear` is created where each dictionary is of the format `{'date' : 2015-11-19, 'weekday':'Thursday', 'male': 1.06, 'female': 1.2}`. `'male'` stands for the avergae number of drinks had by the males on that day and similarly for `'female'`. 
     - Along with this, for every year blank vallues are updated for the dates starting `tomorrow` till `end_date`. Again for `2015` the dates fom 1st Jan to 31st March are blanked out. This is done so that the months on the timeseries charts are aligned one below the other. 
+    - The list `thisYear` is first sorted based on the `'date'` key and dumped to a JSON file names as `timeseries_YYYY.json` for the particular year in question. Thus for each year present in `year_list` a JSON file will be generated. 
+    
  3. **daterange( )**
    - This function is used to create a date range given the `start` and `end` dates.   
+
+### Front-end documentation
+The **timeseries.html** file contains the HTML, Javascript and CSS code for rendering the graphs. 
 
 ## Timeseries Visualization
 Yearly mouse-wheel enabled zoomable charts with interactive legend and smooth animation. 
