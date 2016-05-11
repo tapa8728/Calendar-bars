@@ -1,4 +1,4 @@
-# Calendar visualization of Drinking Patterns
+# Daily Visualization of Drinking Patterns
 
 ## Heroku
 https://drinking-calendar.herokuapp.com/
