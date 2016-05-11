@@ -29,7 +29,8 @@ The **operation.py** operates on the raw data file **drinking_answers.txt** and 
    - This function is used to create a date range given the `start` and `end` dates.   
 
 ### Front-end documentation
-The **timeseries.html** file contains the HTML, Javascript and CSS code for rendering the graphs. 
+The **timeseries.html** file contains the HTML, Javascript(`amcharts/amcharts.js`, `amcharts/serial.js`,`amcharts/plugins/dataloader/dataloader.js`), JQuery and CSS(`bootstrap`) code for rendering the graphs. Using the `configTempate` variable, a template for the timeseries charts is created and reused while creating the charts in the `ready` function. the `dataLoader` plugin allows loading of external JSON files. Each chart renders the data for that specific year. Each chart is basically renderend into its own `<div>` element. For adding a chart for future years, simply create another chart in `Amcharts.ready()` that loads the JSON file for that year and a new `<div>` for it.  
+
 
 ## Timeseries Visualization
 Yearly mouse-wheel enabled zoomable charts with interactive legend and smooth animation. 
